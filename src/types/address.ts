@@ -1,9 +1,13 @@
 export interface IAddress{
-    id: string,
-    countryCode: string,
-    mainAddress: boolean,
-    city: string,
-    region: string,
-    zipCode:  string,
-
-}
+    id?: string;
+    title?: string;
+    name?: string;
+    content?: string;
+    city?: string;
+    state?: string;
+    postalCode?: string;
+    phone?: string;
+    mainAddress?: boolean;
+    userId: string;
+  }
+    

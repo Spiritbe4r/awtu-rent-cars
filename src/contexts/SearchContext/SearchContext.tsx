@@ -28,7 +28,7 @@ export function SearchProvider(props:any) {
         : query?.search ?? "";
        
         const response = await productCtrl.getAll(1, 100000, searchQ);
-
+        console.log("search product", response)
         setProducts(response.content || []);
         setTotalItems(response.totalElements || 0);
       } catch (error) {

@@ -27,7 +27,8 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
       <Container>
         <div className={styles.product}>
           <div>
-            <Image src={image} alt={product?.title} />
+            <Product.ImageCtnr imgs={product?.gallery}></Product.ImageCtnr>
+            {/* <Image src={image} alt={product?.title} /> */}
           </div>
           <div>
             <Product.Info product={product} />

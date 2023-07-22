@@ -44,6 +44,7 @@ export function ProductsDetails(props: Props) {
       {map(products, (product) => (
         <div key={product.id} className={styles.product}>
           <div>
+         
             <Image
               src={product.mainImage} // It seems `fn.getUrlImage` is a custom function, please provide its implementation.
               alt={product.title}
@@ -54,7 +55,7 @@ export function ProductsDetails(props: Props) {
           </div>
 
           <p className={styles.price}>
-            {product.quantity} x {product.price}€
+            {product.price} x {product.price}€
           </p>
         </div>
       ))}

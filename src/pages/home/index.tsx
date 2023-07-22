@@ -33,7 +33,7 @@ export default function HomePage() {
 
         <Separator height={50} />
 
-        <h2>Últimos productos</h2>
+        <h2>Últimos Autos</h2>
         <Separator height={10} />
         <GridProducts
           products={products}

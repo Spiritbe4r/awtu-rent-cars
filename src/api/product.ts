@@ -125,8 +125,8 @@ async function getProductById(productId: string) {
   }
 }
 
-function buildFilters(page: number, pageSize: number, categSlug: string): string {
-  const filters = queryString.stringify({ page, pageSize, categSlug });
+function buildFilters(page: number, pageSize: number, search: string): string {
+  const filters = queryString.stringify({ page, pageSize, search });
 
   return filters;
 }

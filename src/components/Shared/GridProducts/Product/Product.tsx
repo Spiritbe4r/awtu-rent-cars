@@ -33,8 +33,10 @@ export function Product(props:ProductProps) {
         [classProduct]: classProduct,
       })}
     >
+
       <Link href={`/product/${product.slug}`}>
         <div className={styles.content}>
+         
           <Image className={styles.productImage} src={image} alt={product.title} />
           <h3>{product.title}</h3>
           <p>{product.description}</p>
@@ -42,11 +44,11 @@ export function Product(props:ProductProps) {
             <span>{product.price}€</span>
           </div>
 
-          {lowStock && (
+          {/* {lowStock && (
             <p className={styles.lowStock}>
               {`Solo quedan ${product.stock} unidades`}
             </p>
-          )}
+          )} */}
         </div>
       </Link>
     </div>

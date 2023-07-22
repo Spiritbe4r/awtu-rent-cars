@@ -1,86 +1,48 @@
-import { axiosClient } from "@/client";
-import { ENV, authFetch } from "@/utils";
+import {axiosClient} from "@/client";
+import {IAddress} from "@/types";
+import {ENV} from "@/utils";
 import queryString from "query-string";
 
 const httpClient = axiosClient(`${ENV.API_URL}`);
 
-const getAllAddresses = async (): Promise<any> => {
-  const url: string = `${ENV.ENDPOINTS.ADDRESS}`;
+const getAllAddresses = async (): Promise<IAddress[]> => {
+  const url: string = `${ENV.ENDPOINTS.ADDRESS}/user`;
 
-  const resp = await httpClient.get<any>(url, {
+  return await httpClient.get<any>(url, {
     requiresToken: true,
   });
-  return resp;
 }
 
 const createAddress = async (data: any) => {
-  try {
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESS}`;
-    const params = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-
-    const response = await authFetch(url, params);
-
-    if (response?.status !== 200) throw response;
-
-    return true;
-  } catch (error) {
-    throw error;
-  }
+  const url = `${ENV.ENDPOINTS.ADDRESS}`;
+  return await httpClient.post<any>(url, data, {
+    requiresToken: true,
+  });
 }
 
 const updateAddress = async (data: any, addressId: any) => {
-  try {
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESS}/${addressId}`;
-    const params = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-
-    const response = await authFetch(url, params);
-
-    if (response?.status !== 200) throw response;
-
-    return true;
-  } catch (error) {
-    throw error;
-  }
+  const url = `${ENV.ENDPOINTS.ADDRESS}/${addressId}`;
+  return await httpClient.put<any>(url, data, {
+    requiresToken: true,
+  });
 }
 
 const deleteAddress = async (addressId: any) => {
-  try {
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESS}/${addressId}`;
-    const params = { method: "DELETE" };
-
-    const response = await authFetch(url, params);
-
-    if (response?.status !== 200) throw response;
-
-    return true;
-  } catch (error) {
-    throw error;
-  }
+  const url = `${ENV.ENDPOINTS.ADDRESS}/${addressId}`;
+  return await httpClient.delete<any>(url, {
+    requiresToken: true,
+  });
 }
 
 const getAddressById = async (addId: string) => {
   try {
     const filters= queryString.stringify({addId});
     console.log("filters", filters);
-    const url = `${ENV.API_URL}/${ENV.ENDPOINTS.ADDRESS}?${filters}`;
+    const url = `${ENV.ENDPOINTS.ADDRESS}?${filters}`;
 
-    const response = await httpClient.delete<any>(url, {
+    return await httpClient.get<any>(url, {
       requiresToken: true,
     });
-
-    return response;
   } catch (error) {
     throw error;
   }

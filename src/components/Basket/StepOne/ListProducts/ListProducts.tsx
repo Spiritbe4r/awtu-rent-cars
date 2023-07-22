@@ -36,11 +36,11 @@ export function ListProducts(props:any) {
                   changeQuantityItem(product.id, data.value)
                 }
               />
-              <span>{product.price}€</span>
+              <span>{product.price}S/.</span>
               <Icon
-                // name="trash alternate online"
+                name="trash alternate online"
                 link
-                onClick={() => deleteItem(product.prodID)}
+                onClick={() => deleteItem(product.id)}
               />
             </div>
           </div>

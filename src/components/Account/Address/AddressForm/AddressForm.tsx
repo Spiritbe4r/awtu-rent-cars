@@ -2,11 +2,12 @@ import { Form } from "semantic-ui-react";
 import { useFormik } from "formik";
 import { addressCtrl } from "@/api";
 import { initialValues, validationSchema } from "./AddressForm.form";
+import { IAddress } from "@/types";
 
 interface AddressFormProps {
   onClose: () => void;
   onReload: () => void;
-  address?: any;
+  address?: IAddress;
 }
 
 export function AddressForm(props: AddressFormProps) {
@@ -16,10 +17,10 @@ export function AddressForm(props: AddressFormProps) {
     initialValues: initialValues(address),
     validationSchema: validationSchema(),
     validateOnChange: false,
-    onSubmit: async (formValues) => {
+    onSubmit: async (formValues:IAddress) => {
       try {
         if (address) {
-          await addressCtrl.update(formValues, address.addId);
+          await addressCtrl.update(formValues, address.id);
         } else {
           await addressCtrl.create(formValues);
         }
@@ -36,61 +37,61 @@ export function AddressForm(props: AddressFormProps) {
   return (
     <Form onSubmit={formik.handleSubmit}>
       <Form.Input
-        name="addTitle"
+        name="title"
         placeholder="Titulo de la dirección"
-        value={formik.values.addTitle}
+        value={formik.values.title}
         onChange={formik.handleChange}
-        error={formik.errors.addTitle}
+        error={formik.errors.title}
       />
 
       <Form.Group widths="equal">
         <Form.Input
-          name="addName"
+          name="name"
           placeholder="Nombre y apellidos"
-          value={formik.values.addName}
+          value={formik.values.name}
           onChange={formik.handleChange}
-          error={formik.errors.addName}
+          error={formik.errors.name}
         />
         <Form.Input
-          name="addAddress"
+          name="content"
           placeholder="Dirección"
-          value={formik.values.addAddress}
+          value={formik.values.content}
           onChange={formik.handleChange}
-          error={formik.errors.addAddress}
+          error={formik.errors.content}
         />
       </Form.Group>
 
       <Form.Group widths="equal">
         <Form.Input
-          name="addState"
+          name="state"
           placeholder="Provincia"
-          value={formik.values.addState}
+          value={formik.values.state}
           onChange={formik.handleChange}
-          error={formik.errors.addState}
+          error={formik.errors.state}
         />
         <Form.Input
-          name="addCity"
+          name="city"
           placeholder="Ciudad"
-          value={formik.values.addCity}
+          value={formik.values.city}
           onChange={formik.handleChange}
-          error={formik.errors.addCity}
+          error={formik.errors.city}
         />
       </Form.Group>
 
       <Form.Group widths="equal">
         <Form.Input
-          name="addPostalCode"
+          name="postalCode"
           placeholder="Código postal"
-          value={formik.values.addPostalCode}
+          value={formik.values.postalCode}
           onChange={formik.handleChange}
-          error={formik.errors.addPostalCode}
+          error={formik.errors.postalCode}
         />
         <Form.Input
-          name="addPhone"
+          name="phone"
           placeholder="Teléfono"
-          value={formik.values.addPhone}
+          value={formik.values.phone}
           onChange={formik.handleChange}
-          error={formik.errors.addPhone}
+          error={formik.errors.phone}
         />
       </Form.Group>
 

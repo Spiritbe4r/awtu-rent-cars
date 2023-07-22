@@ -1,25 +1,27 @@
+import { IAddress } from "@/types";
 import * as Yup from "yup";
 
-export function initialValues(data: any) {
+export const initialValues = (data?: IAddress) => {
   return {
-    addTitle: data?.addTitle || "",
-    addName: data?.addName || "",
-    addAddress: data?.addAddress || "",
-    addCity: data?.addCity || "",
-    addState: data?.addState || "",
-    addPostalCode: data?.addPostalCode || "",
-    addPhone: data?.addPhone || "",
+    title: data?.title ?? "",
+    name: data?.name ?? "",
+    content: data?.content ?? "",
+    city: data?.city ?? "",
+    state: data?.state ?? "",
+    postalCode: data?.postalCode ?? "",
+    phone: data?.phone ?? "",
+    userId: data?.userId ?? "",
   };
 }
 
-export function validationSchema() {
+export const validationSchema = () => {
   return Yup.object({
-    addTitle: Yup.string().required("Title is required"),
-    addName: Yup.string().required("Name is required"),
-    addAddress: Yup.string().required("Address is required"),
-    addCity: Yup.string().required("City is required"),
-    addState: Yup.string().required("State is required"),
-    addPostalCode: Yup.string().required("Postal code is required"),
-    addPhone: Yup.number().required("Phone number is required"),
+    title: Yup.string().required("Title is required"),
+    name: Yup.string().required("Name is required"),
+    content: Yup.string().required("Address is required"),
+    city: Yup.string().required("City is required"),
+    state: Yup.string().required("State is required"),
+    postalCode: Yup.string().required("Postal code is required"),
+    phone: Yup.number().required("Phone number is required"),
   });
 }

@@ -1,48 +1,62 @@
-import { useState, useEffect } from "react";
-import { Button } from "semantic-ui-react";
-import { useRouter } from "next/router";
-import { forEach } from "lodash";
-import { useAuth } from "@/hooks";
+import {useState, useEffect} from "react";
+import {Button} from "semantic-ui-react";
+import {useRouter} from "next/router";
+import {forEach} from "lodash";
+import {useAuth} from "@/hooks";
 import styles from "./Resume.module.scss";
 
-export function Resume(props: any) {
-  const { products, nextStep, btnText, nextDisabled = false } = props;
-  const [total, setTotal] = useState<number | null>(null);
-  const { user } = useAuth();
-  const router = useRouter();
+interface IProductBasket{
 
-  useEffect(() => {
-    let totalTemp = 0;
-    forEach(products, (product) => {
-      totalTemp += product.prodPrice * product.quantity;
-    });
-    setTotal(totalTemp);
-  }, [products]);
+    price: number;
+    quantity: number;
+}
+interface ResumeProps {
+    products: IProductBasket[];
+    nextStep: number;
+    btnText: string;
+    nextDisabled?: boolean;
+}
 
-  const goToNextStep = () => {
-    if (user) {
-      router.replace({ query: { ...router.query, step: nextStep } });
-    } else {
-      router.push("/join/login");
-    }
-  };
+export const Resume = (props: ResumeProps) => {
+    const {products, nextStep, btnText, nextDisabled = false} = props;
+    const [total, setTotal] = useState<number | null>(null);
+    const {user} = useAuth();
+    const router = useRouter();
 
-  if (!total) return null;
+    useEffect(() => {
+        let totalTemp = 0;
+        forEach(products, (product) => {
+            totalTemp += product.price * product?.quantity;
+        });
+        setTotal(totalTemp);
+    }, [products]);
 
-  return (
-    <div className={styles.container}>
-      <h2>Resumen</h2>
+    const goToNextStep = () => {
+        if (user) {
+            router.replace({ query: { ...router.query, step: nextStep } })
+                .then(resp=>console.log(resp));
+        } else {
+            router.push("/join/login")
+                .then(resp=>console.log(resp));
+        }
+    };
 
-      <div className={styles.prices}>
-        <div>
-          <span>Total</span>
-          <span>{total.toFixed(2)}€</span>
+    if (!total) return null;
+
+    return (
+        <div className={styles.container}>
+            <h2>Resumen</h2>
+
+            <div className={styles.prices}>
+                <div>
+                    <span>Total</span>
+                    <span>{total.toFixed(2)} S/.</span>
+                </div>
+            </div>
+
+            <Button primary fluid disabled={nextDisabled} onClick={goToNextStep}>
+                {btnText}
+            </Button>
         </div>
-      </div>
-
-      <Button primary fluid disabled={nextDisabled} onClick={goToNextStep}>
-        {btnText}
-      </Button>
-    </div>
-  );
+    );
 }

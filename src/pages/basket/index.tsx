@@ -6,11 +6,15 @@ import { useBasket } from "@/hooks";
 import { BasketLayout } from "@/layouts";
 import { Loading, NoResult } from "@/components/Shared";
 import { Basket } from "@/components/Basket";
-import { Address, Product } from "@/types";
+import { Address, IProduct } from "@/types";
+interface IBasketProduct{
 
+  quantity: number;
+  price: number;
+}
 export default function BasketPage() {
   const { basket } = useBasket();
-  const [products, setProducts] = useState<Product[] | null>(null);
+  const [products, setProducts] = useState<IProduct[] | null>(null);
   const [address, setAddress] = useState<Address | null>(null);
   const {
     query: { step = "1" },
@@ -20,7 +24,7 @@ export default function BasketPage() {
   useEffect(() => {
     (async () => {
       try {
-        const data: Product[] = [];
+        const data: IProduct[] = [];
         for await (const item of basket) {
           const response = await productCtrl.getById(item.id);
           data.push({ ...response, quantity: item.quantity });

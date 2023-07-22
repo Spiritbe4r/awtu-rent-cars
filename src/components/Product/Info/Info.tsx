@@ -24,7 +24,7 @@ export function Info(props:{product: IProduct}) {
     <div className={styles.container}>
       <h1 className={styles.title}>{product?.title}</h1>
       <span className={styles.stock}>
-        {`Quedan ${product?.stock} unidade/s`}
+        {/* {`Quedan ${product?.stock} unidade/s`} */}
       </span>
       <span className={styles.price}>{product?.price} S/.</span>
 

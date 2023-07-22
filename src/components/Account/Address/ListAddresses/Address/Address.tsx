@@ -28,19 +28,15 @@ export function Address(props: AddressProps) {
       console.error(error);
     }
   };
-  // countryCode: string,
-  // mainAddress: boolean,
-  // city: string,
-  // region: string,
-  // zipCode:  string,
+
   return (
     <>
       <div className={styles.address}>
         <div>
-          <p className={styles.title}>{address.city}</p>
+          <p className={styles?.title}>{address?.city}</p>
           <p className={styles.addressInfo}>
-            {address.city}, {address.city}, {address.region},{" "}
-            {address.city}, {address.zipCode}
+            {address?.name}, {address?.content}, {address?.state},{" "}
+            {address?.city}, {address?.postalCode}
           </p>
         </div>
 

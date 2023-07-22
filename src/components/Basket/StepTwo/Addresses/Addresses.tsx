@@ -7,10 +7,11 @@ import { addressCtrl } from "@/api";
 import { useAuth } from "@/hooks";
 import { Loading, NoResult } from "@/components/Shared";
 import styles from "./Addresses.module.scss";
+import {IAddress} from "@/types";
 
 export function Addresses(props:any) {
   const { address, setAddress } = props;
-  const [addresses, setAddresses] = useState(null);
+  const [addresses, setAddresses] = useState<IAddress[]>([]);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -41,17 +42,17 @@ export function Addresses(props:any) {
 
       {map(addresses, (item:any) => (
         <div
-          key={item.addId}
+          key={item.id}
           onClick={() => setAddress(item)}
           className={classNames(styles.address, {
-            [styles.selected]: item.addId === address?.addId,
+            [styles.selected]: item.id === address?.id,
           })}
         >
           <div>
-            <p className={styles.title}>{item.addTitle}</p>
+            <p className={styles.title}>{item.title}</p>
             <p className={styles.addressInfo}>
-              {item.addName}, {item.addAddress}, {item.addState}, {item.addCity}
-              , {item.addPostalCode}
+              {item.name}, {item.content}, {item.state}, {item.city}
+              , {item.postalCode}
             </p>
           </div>
         </div>

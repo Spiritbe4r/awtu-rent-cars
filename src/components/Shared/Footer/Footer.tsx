@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
             </div>
             <h4 style={{ fontSize: '16px', marginTop: '0.5em' }}>¡Síguenos en las redes!</h4>
             <p style={{ color: '#aaa', fontSize: '14px', marginTop: '0.5em' }}>
-                © {new Date().getFullYear()} Williams Jeans. Todos los derechos reservados.
+                © {new Date().getFullYear()} Awtu Rents. Todos los derechos reservados.
               </p>
           </Grid.Column>
         </Grid.Row>

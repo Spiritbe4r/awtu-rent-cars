@@ -3,25 +3,25 @@ export const data = [
     id: 1,
     title: "Deportivos",
     image: "/images/categories-home/Deportivo_imagenes.jpg",
-    link: "/categories/deportivos",
+    link: "/categories/sports",
   },
   {
     id: 2,
     title: "Familiar",
     image: "/images/categories-home/Deportivo_imagenes.jpg",
-    link: "/categories/deportivos",
+    link: "/categories/family",
   },
   {
     id: 3,
-    title: "Prototipos",
+    title: "Sedan",
     image: "/images/categories-home/Deportivo_imagenes.jpg",
-    link: "/categories/deportivos",
+    link: "/categories/sedan",
   },
   {
     id: 4,
-    title: "TodoTerreno",
+    title: "Camionetas",
     image: "/images/categories-home/Deportivo_imagenes.jpg",
-    link: "/categories/deportivos",
+    link: "/categories/vans",
   }
   // {
   //   id: 3,

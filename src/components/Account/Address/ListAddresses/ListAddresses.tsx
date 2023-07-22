@@ -4,16 +4,19 @@ import { addressCtrl } from "@/api";
 import { Loading, NoResult } from "@/components/Shared";
 import { Address } from "./Address";
 import styles from "./ListAddresses.module.scss";
+import { IAddress } from "@/types";
 
 export function ListAddresses(props:any) {
   const { reload, onReload } = props;
-  const [addresses, setAddresses] = useState(null);
+  const [addresses, setAddresses] = useState<IAddress[]>([]);
 
   useEffect(() => {
     (async () => {
       try {
         const response = await addressCtrl.getAll();
+        console.log("responsegetAll",JSON.stringify(response));
         setAddresses(response);
+        return response;
       } catch (error) {
         console.error("ERROR", error);
       }
@@ -25,12 +28,12 @@ export function ListAddresses(props:any) {
   }
 
   return (
-    <div className={styles.addresses}>
-      {size(addresses) === 0 && <NoResult text="Crea tu primera dirección" />}
+    <div>
+    {addresses?.length === 0 && <NoResult text="Crea tu primera dirección" />}
 
-      {map(addresses, (address:any) => (
-        <Address key={address.id} address={address} onReload={onReload} />
-      ))}
-    </div>
+    {addresses?.map((address: IAddress) => (
+      <Address key={address.id} address={address} onReload={onReload} />
+    ))}
+  </div>
   );
 }

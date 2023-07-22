@@ -33,7 +33,7 @@ export default function AccountPage() {
       ),
     },
     {
-      menuItem: "Mis pedidos",
+      menuItem: "Mis Autos alquilados",
       render: () => (
         <Tab.Pane>
           <Orders.List />

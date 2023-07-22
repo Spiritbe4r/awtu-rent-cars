@@ -17,4 +17,5 @@ export interface IProduct {
     status: string;
     nsales: number;
     npoints: number;
+    quantity: number;
 }
