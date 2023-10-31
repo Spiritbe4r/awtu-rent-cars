@@ -9,8 +9,6 @@ import styles from "./GridProducts.module.scss";
 export function GridProducts(props: any) {
   const { products, columns = 4, classProduct } = props;
 
-  console.log("GridProducts, JSON: " + JSON.stringify(products));
-
   if (!products) {
     return (
       <>

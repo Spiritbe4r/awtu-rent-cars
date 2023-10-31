@@ -16,12 +16,12 @@ interface ProductProps {
 export function Product(props:ProductProps) {
   const { product, classProduct } = props;
   const [image, setImage] = useState(NOT_FOUND_IMG);
-  const lowStock = product.stock > 0 && product.stock < 10;
+ // const lowStock = product.stock > 0 && product.stock < 10;
 
-  console.log("PRODUCTSSS" , JSON.stringify(product));
+  //console.log("PRODUCTSSS" , JSON.stringify(product));
 
   useEffect(() => {
-    const imageUrl = product.mainImage?.url;
+    const imageUrl = product.images[0]?.url;
     const finalImage= Util.evaluateExistValue(imageUrl)? imageUrl : NOT_FOUND_IMG;
     setImage(finalImage);
 
@@ -37,11 +37,11 @@ export function Product(props:ProductProps) {
       <Link href={`/product/${product.slug}`}>
         <div className={styles.content}>
          
-          <Image className={styles.productImage} src={image} alt={product.title} />
-          <h3>{product.title}</h3>
+          <Image className={styles.productImage} src={image} alt={product.model} />
+          <h3>{product.model}</h3>
           <p>{product.description}</p>
           <div className={styles.footer}>
-            <span>{product.price}€</span>
+            <span> S/.{product.rentPricePerDay}</span>
           </div>
 
           {/* {lowStock && (

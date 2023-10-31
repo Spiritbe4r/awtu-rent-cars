@@ -4,7 +4,7 @@ interface RequestOptions {
     body?: any;
 }
 
-async function apiRequest(url: string, options: RequestOptions = {}): Promise<any> {
+async function apiRequest<T>(url: string, options: RequestOptions = {}): Promise<T> {
     try {
         const defaultOptions: RequestOptions = {
             method: "GET",
@@ -24,8 +24,15 @@ async function apiRequest(url: string, options: RequestOptions = {}): Promise<an
         if (!response.ok) {
             throw new Error(`API request failed with status ${response.status}`);
         }
+        const contentType = response.headers.get("content-type");
 
-        return await response.json();
+        if (contentType && contentType.includes("application/json")) {
+            return await response.json() as T;
+        } else if (response.status === 201 || response.status === 200) {
+            // Return an appropriate value to indicate successful user creation
+            return { success: true } as T;
+        }
+
     } catch (error) {
         console.error("An error occurred during the API request:", error);
         throw error;

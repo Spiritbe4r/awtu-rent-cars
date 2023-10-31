@@ -15,7 +15,7 @@ export default function HomePage() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await productCtrl.getAll(1, 100);
+        const response = await productCtrl.getAll(0, 100);
       
         setProducts(response.content || []);
       } catch (error) {
@@ -26,6 +26,7 @@ export default function HomePage() {
 
   return (
     <BasicLayout>
+     {/* <Map/> */}
       <ToastContainer />
       <Separator height={50} />
       <Container>

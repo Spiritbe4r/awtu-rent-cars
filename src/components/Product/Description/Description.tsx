@@ -5,7 +5,7 @@ export function Description(props:{product: IProduct}) {
 
   return (
     <div>
-      <div dangerouslySetInnerHTML={{ __html: product?.description }} />
+      <div dangerouslySetInnerHTML={{ __html: product?.content }} />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 export interface IAuthResponse {
-    accessToken: string;
+    authToken: string;
     payload: Payload;
 }
 
 interface Payload {
     email?: string;
     userId?: string;
-    isAdmin: boolean;
+    roles: string[];
 }

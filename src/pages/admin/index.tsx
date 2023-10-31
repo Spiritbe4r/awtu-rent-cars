@@ -9,12 +9,14 @@ import styles from "./admin.module.scss";
 
 export default function AdminPage() {
   const [reload, setReload] = useState(false);
-  const { isAdmin } = useAuth();
+  const { isAdmin, isSeller } = useAuth();
+  console.log("USER_AUTH", "IS_ADMIN" + isAdmin + "IS_SELLER", isSeller); ;
+
   const router = useRouter();
 
   const onReload = () => setReload((prevState) => !prevState);
 
-  if (!isAdmin) {
+  if (!isAdmin && !isSeller) {
     router.push("/");
     return null;
   }
@@ -51,13 +53,13 @@ export default function AdminPage() {
           <User.List />
         </Tab.Pane>
       ),
-    },
+    }
   ];
 
   return (
     <BasicLayout>
       <Container>
-        <Tab panes={panes} className={styles.tabs} />
+        <Tab panes={isAdmin ? panes : [panes[0]]} className={styles.tabs} />
       </Container>
     </BasicLayout>
   );

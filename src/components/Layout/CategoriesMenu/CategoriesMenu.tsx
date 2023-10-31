@@ -22,7 +22,7 @@ export function CategoriesMenu() {
   return (
     <div className={styles.container}>
       {map(categories, (category:any) => (
-        <Link key={category.id} href={`/categories/${category.path}`}>
+        <Link key={category.id} href={`/categories/${category.slug}`}>
           {category.name}
         </Link>
       ))}

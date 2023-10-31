@@ -7,10 +7,10 @@ const NOT_FOUND_IMG = "/images/not-found.jpg";
 export function User(props:{user : User}) {
   const { user } = props;
   const [avatar, setAvatar] = useState(NOT_FOUND_IMG);
-  const isAdmin = user.roles.includes('ROLE_ADMIN');
+  const isAdmin = user.roles?.includes('ROLE_ADMIN');
 
   useEffect(() => {
-    const imageUrl = user.profileImage?.url || NOT_FOUND_IMG;
+    const imageUrl = user.profileImage?.url ?? NOT_FOUND_IMG;
 
     setAvatar(imageUrl);
   }, [user]);

@@ -1,6 +1,6 @@
 import { axiosClient } from "@/client";
 import { ProductListResponse } from "@/types";
-import { ENV, authFetch } from "@/utils";
+import { ENV, Util, authFetch } from "@/utils";
 
 import queryString from "query-string";
 
@@ -19,10 +19,32 @@ async function getAllProducts(page = 1, pageSize = 10, search = "") {
   }
 }
 
+interface SearchData {
+  seller?: string;
+  search: string;
+}
+
+async function getAllProductsByUser(page = 1, pageSize = 10, data :SearchData) {
+  const search={
+    seller:data.seller,
+    search: data.search
+  }
+  const filters = queryString.stringify({ page, pageSize });
+  try {
+  
+    const response = await apiClient.post<ProductListResponse>(`${ENV.ENDPOINTS.PRODUCT}/user?${filters}`, search);
+    console.log("RESPONSE FILTER",JSON.stringify(response));
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function createProduct(data: any) {
   try {
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.PRODUCT}`;
-
+    data.slug = Util.createSlug(data.model);
     const response = await apiClient.post(url,data,{
       requiresToken: true,
     });
@@ -117,7 +139,7 @@ async function getProductById(productId: string) {
   
     const url = `${ENV.ENDPOINTS.PRODUCT}/${productId}`;
 
-    const response = await apiClient.get(url);
+    const response = await apiClient.get<any>(url);
     console.log("PRODUCT BY ID", JSON.stringify(response));
     return response;
   } catch (error) {
@@ -140,4 +162,5 @@ export const productCtrl = {
   getByCategorySlug: getProductsByCategorySlug,
   getBySlug: getProductBySlug,
   getById: getProductById,
+  getAllByUSer: getAllProductsByUser
 };

@@ -1,34 +1,48 @@
 import * as Yup from "yup";
 
-interface ProductData {
-  title: string;
+export interface ProductFormData {
+  model: string;
   description: string;
-  price: number;
-  stock: number;
+  rentPricePerDay: number;
   content: string;
-  category: string | null;
-  status: string,
+  plate: string;
+  brand: string;
+  year: number;
+  color: string;
+  categoryId: string | null;
+  status: string;
+  sellerId?: string;
+  location: any;
 }
 
-export function initialValues(data?: ProductData) {
+
+export function initialValues(data: ProductFormData) {
   return {
-    title: data?.title ?? "",
+    model: data?.model ?? "",
     description: data?.description ?? "",
-    price: data?.price ?? "",
-    stock: data?.stock ?? "",
-    content: data?.content?? "",
-    category: data?.category ?? null,
-    status: data?.status ?? "PUBLISH",
+    rentPricePerDay: data?.rentPricePerDay ?? "",
+    color: data?.color ?? "",
+    content: data?.content ?? "",
+    plate: data?.plate ?? "",
+    year: data?.year ?? "",
+    categoryId: data?.categoryId ?? null,
+    status: "PUBLISH",
+    sellerId: data?.sellerId,
+    location: data?.location ?? {
+      latitude: 0,
+      longitude: 0
+    },
+
   };
 }
 
 export function validationSchema() {
   return Yup.object({
-    title: Yup.string().required("El título del producto es obligatorio"),
-    description: Yup.string().required("La descripción del producto es obligatoria"),
-    price: Yup.number().required("El precio del producto es obligatorio"),
-    stock: Yup.number().required("El stock del producto es obligatorio"),
+    model: Yup.string().required("El Modelo del Auto es obligatorio"),
+    description: Yup.string().required("La descripción del Auto es obligatoria"),
+    rentPricePerDay: Yup.number().required("El precio del Auto es obligatorio"),
+    plate: Yup.string().required("La placa del Auto es obligatorio"),
     content: Yup.string().required("El contenido del Producto es obligatoria"),
-    category: Yup.string().required("El ID de la categoría del producto es obligatorio"),
+    categoryId: Yup.string().required("El ID de la categoría del producto es obligatorio"),
   });
 }

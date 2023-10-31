@@ -27,7 +27,7 @@ export function Category(props:any) {
     <>
       <Table.Cell>{category.id}</Table.Cell>
       <Table.Cell>{category.name}</Table.Cell>
-      <Table.Cell>{category.path}</Table.Cell>
+      <Table.Cell>{category.slug}</Table.Cell>
       <Table.Cell className={styles.actions} textAlign="right">
         <Icon name="pencil" link onClick={onOpenCloseModal} />
         <Icon name="trash" link onClick={onOpenCloseConfirm} />

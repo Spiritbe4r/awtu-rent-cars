@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
 import { ENV } from "@/utils/constants";
+import { loadFromLocalStorage } from '@/utils/local-store.util';
 type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 interface HttpClientConfig extends AxiosRequestConfig {
     requiresToken?: boolean;
@@ -54,7 +55,7 @@ function initializeInterceptors(httpClient: AxiosInstance): void {
         
 
             if (config.requiresToken) {
-                const token = localStorage.getItem('token');
+                const token = loadFromLocalStorage('token');
                 config.headers = {
                     ...config.headers,
                     Authorization: `Bearer ${token}`,

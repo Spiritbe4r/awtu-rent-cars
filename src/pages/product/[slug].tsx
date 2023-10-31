@@ -21,20 +21,28 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
     const imageUrl = product?.mainImage?.url;
     setImage(imageUrl)
   }, [product]);
+  const renter = {
+    name: 'Juanito Mamani Mamani',
+    email: 'juanito@gmail.com',
+    phone: '983423456'
+  }
 
   return (
     <BasicLayout>
       <Container>
         <div className={styles.product}>
           <div>
-            <Product.ImageCtnr imgs={product?.gallery}></Product.ImageCtnr>
+            <Product.ImageCtnr imgs={product?.images}></Product.ImageCtnr>
             {/* <Image src={image} alt={product?.title} /> */}
           </div>
           <div>
             <Product.Info product={product} />
           </div>
-        </div>
 
+        </div>
+        <div>
+          <Product.RenterInfo renter={renter} />
+        </div>
         <Separator height={20} />
         <Product.Description product={product} />
       </Container>
@@ -45,7 +53,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
 }
 export default ProductPage;
 
-export async function getServerSideProps(context:any) {
+export async function getServerSideProps(context: any) {
   const {
     params: { slug },
     query: { search },

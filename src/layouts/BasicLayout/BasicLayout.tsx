@@ -6,7 +6,7 @@ import { Search } from "@/components/Shared";
 
 export function BasicLayout(props:any) {
   const { children } = props;
-  const isAdmin  = useAuth();
+  const {isAdmin , isSeller}  = useAuth();
 
   return (
     <>
@@ -21,7 +21,7 @@ export function BasicLayout(props:any) {
           </div>
 
           <div>
-            {isAdmin && <Layout.AdminButton />}
+            {isAdmin || isSeller ? <Layout.AdminButton /> : <></>}
             <Layout.Account />
             <Layout.Basket />
           </div>

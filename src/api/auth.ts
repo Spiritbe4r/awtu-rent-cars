@@ -2,6 +2,8 @@
 import { requestUtil } from "@/utils/request";
 import { ENV } from "@/utils";
 import { useTokenFromStorage } from "@/hooks";
+import { IAuthResponse } from "@/types/AuthResponse";
+import { deleteFromLocalStorage, saveToLocalStorage } from "@/utils/local-store.util";
 
 
 
@@ -22,13 +24,12 @@ async function register(data: any) {
   }
 }
 
-async function resendCode(data: any) {
-  const url = `${ENV.API_URL}/${ENV.ENDPOINTS.AUTH}/otp-resend?email=${data.email}`;
+async function resendCode(email: string) {
+  const url = `${ENV.API_URL}/${ENV.ENDPOINTS.AUTH}/otp-resend?email=${email}`;
 
   return await requestUtil.withErrorHandling<boolean>(async () => {
-    await requestUtil.apiRequest(url);
+    return await requestUtil.apiRequest(url);
 
-    return true;
   });
 }
 
@@ -50,12 +51,13 @@ async function login(data: any) {
 
   const url = `${ENV.API_URL}/${ENV.ENDPOINTS.AUTH}/login`;
   return await requestUtil.withErrorHandling<boolean>(async () => {
-    const resp = await requestUtil.apiRequest(url, {
+    const resp = await requestUtil.apiRequest<IAuthResponse>(url, {
       method: "POST",
       body: data,
     });
-    localStorage.setItem("token", resp.accessToken)
 
+    saveToLocalStorage("token", resp.authToken)
+    saveToLocalStorage("user", resp.payload)
     return true;
 
   });
@@ -64,8 +66,8 @@ async function login(data: any) {
 
 async function retriveSession() {
   try {
-  const sessionAuthToken = useTokenFromStorage()
-     return sessionAuthToken;
+    const sessionAuthToken = useTokenFromStorage()
+    return sessionAuthToken;
   } catch (error) {
     throw error;
   }
@@ -73,8 +75,9 @@ async function retriveSession() {
 
 async function logout() {
   try {
-    
-    // await Auth.signOut();
+
+    deleteFromLocalStorage(true);
+
   } catch (error) {
     throw error;
   }

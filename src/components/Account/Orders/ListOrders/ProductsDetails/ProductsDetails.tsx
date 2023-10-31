@@ -47,15 +47,15 @@ export function ProductsDetails(props: Props) {
          
             <Image
               src={product.mainImage} // It seems `fn.getUrlImage` is a custom function, please provide its implementation.
-              alt={product.title}
+              alt={product.model}
             />
             <div>
-              <h4>{product.title}</h4>
+              <h4>{product.model}</h4>
             </div>
           </div>
 
           <p className={styles.price}>
-            {product.price} x {product.price}€
+            {product.rentPricePerDay} x {product.rentPricePerDay}
           </p>
         </div>
       ))}

@@ -18,7 +18,7 @@ export function ListProducts(props:any) {
 
       {map(products, (product) => (
         <div key={product.id} className={styles.product}>
-          <Image src={(product.id)} alt={product.title} />
+          <Image src={(product.id)} alt={product.model} />
 
           <div>
             <div className={styles.info}>

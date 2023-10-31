@@ -1,6 +1,7 @@
 
 import { axiosClient } from "@/client";
 import { IAuthResponse } from "@/types/AuthResponse";
+import { UserResponse } from "@/types/user.response";
 import { ENV } from "@/utils/constants";
 import { AxiosRequestConfig } from "axios";
 import queryString from "query-string";
@@ -12,7 +13,7 @@ async function me() {
   try {
     const url = `${ENV.API_URL}/${ENV.ENDPOINTS.USERS}/me`;
 
-    const response = await apiClient.get<any>(url, {
+    const response = await apiClient.get<UserResponse>(url, {
       requiresToken: true
     });
     return response;

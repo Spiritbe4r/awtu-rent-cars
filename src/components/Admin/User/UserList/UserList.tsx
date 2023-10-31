@@ -11,7 +11,7 @@ export function UserList() {
   const [users, setUsers] = useState(null);
   const [totalPages, setTotalPages] =  useState<number | null>(null);
   const { query } = useRouter();
-  const page = Number(query.page ?? 1);
+  const page = Number(query.page ?? 0);
 
   useEffect(() => {
     (async () => {

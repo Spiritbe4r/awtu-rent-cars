@@ -14,13 +14,14 @@ const passwordValidation = Yup.string().required("Password is required");
 const repeatPasswordValidation = Yup.string()
   .required("Repeat Password is required")
   .oneOf([Yup.ref("password")], "Passwords must match");
+const roleValidation = Yup.string().required("Role is required");
 
 export const validationSchema: Yup.ObjectSchema<FormValues> = Yup.object({
   username: usernameValidation,
   email: emailValidation,
   password: passwordValidation,
   repeatPassword: repeatPasswordValidation,
-  role: Yup.string().required("Role is required"),
+  role: roleValidation,
 });
 
 export const initialValues: FormValues = {
@@ -28,5 +29,5 @@ export const initialValues: FormValues = {
   email: "",
   password: "",
   repeatPassword: "",
-  role: "ROLE_CLIENT",
+  role: "",
 };

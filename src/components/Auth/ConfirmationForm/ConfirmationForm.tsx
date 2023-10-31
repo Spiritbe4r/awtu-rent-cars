@@ -50,6 +50,7 @@ export function ConfirmationForm() {
       return;
     }
     setLoading(true);
+    console.log("Email", formik.values.email)
     await authCtrl.resendCode(formik.values.email);
     setLoading(false);
   };

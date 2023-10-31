@@ -3,19 +3,17 @@ import { IVariety } from "./varieties";
 
 export interface IProduct {
     id: string;
-    title: string;
+    model: string;
     slug: string;
-    gallery: IGallery[];
+    images: IGallery[];
     brand: string | null;
     mainImage: IGallery;
-    price: number;
+    rentPricePerDay: number;
     description: string;
     content: string;
-    stock: number;
-    varieties: IVariety[];
-    category: string;
+    year: number;
+
+    categoryId: string;
     status: string;
-    nsales: number;
-    npoints: number;
     quantity: number;
 }

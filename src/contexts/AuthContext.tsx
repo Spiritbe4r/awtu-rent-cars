@@ -1,13 +1,14 @@
 import { useState, useEffect, createContext, ReactNode } from "react";
 import { useRouter } from "next/router";
-import { User } from "@/types";
 import { userCtrl } from "@/api/user";
 import { IAuthResponse } from "@/types/AuthResponse";
+import { UserResponse } from "@/types/user.response";
 
 
 interface AuthContextData {
-  user: User | null;
+  user: UserResponse | null;
   isAdmin: boolean;
+  isSeller: boolean;
   login: () => Promise<void>;
   logout: () => void;
   updateUser: (key: string, value: any) => void;
@@ -16,9 +17,10 @@ interface AuthContextData {
 export const AuthContext = createContext<AuthContextData>({
   user: null,
   isAdmin: false,
-  login: async () => {},
-  logout: () => {},
-  updateUser: () => {},
+  isSeller: false,
+  login: async () => { },
+  logout: () => { },
+  updateUser: () => { },
 });
 
 
@@ -30,6 +32,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   //const [user, setUser] = useState<User | null>(null);
   const [user, setUser] = useState<any | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -46,11 +49,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const login = async () => {
     try {
+
       const response = await userCtrl.me();
       setUser(response);
       console.log("response", JSON.stringify(response));
-      setIsAdmin(response.isAdmin === true);
+      const isAdmin = response.roles.some((role) => role === "ROLE_ADMIN");
+      const isSeller = response.roles.some((role) => role === "ROLE_SELLER");
+
+      setIsAdmin(isAdmin);
+      setIsSeller(isSeller);
+      console.log("IS_ADMIN", isAdmin)
+      console.log("IS_SELLER", isSeller)
+
       setLoading(false);
+
       return response;
     } catch (error) {
       console.error(error);
@@ -60,12 +72,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = () => {
     setUser(null);
-    //authCtrl.logout();
+    
     router.push("/");
   };
 
   const updateUser = (key: string, value: any) => {
-    setUser((prevUser:any) => ({
+    setUser((prevUser: any) => ({
       ...prevUser,
       [key]: value,
     }));
@@ -74,6 +86,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const data: AuthContextData = {
     user,
     isAdmin,
+    isSeller,
     login,
     logout,
     updateUser,

@@ -16,7 +16,7 @@ export function Product(props:any) {
   const [modalContent, setModalContent] = useState<null | JSX.Element>(null);
 
   useEffect(() => {
-    const imageUrl = product.mainImage?.url || NOT_FOUND_IMAGE;
+    const imageUrl = product.images[0]?.url || NOT_FOUND_IMAGE;
     setImage(imageUrl);
   }, [product]);
 
@@ -59,11 +59,12 @@ export function Product(props:any) {
     <>
       <Table.Cell>{product.id}</Table.Cell>
       <Table.Cell>
-        <Image className={styles.image} src={image} alt={product.title} />
+        <Image className={styles.image} src={image} alt={product.model} />
       </Table.Cell>
-      <Table.Cell>{product.title}</Table.Cell>
-      <Table.Cell>{product.price}S/.</Table.Cell>
-      <Table.Cell>{product.stock} Unidades</Table.Cell>
+      <Table.Cell>{product.model}</Table.Cell>
+      <Table.Cell> S/.{product.rentPricePerDay}</Table.Cell>
+      <Table.Cell>{product.year}</Table.Cell>
+      <Table.Cell>{product.color}</Table.Cell>
       <Table.Cell className={styles.actions}>
         <Icon name="pencil" link onClick={openEditProduct} />
         <Icon name="image" link onClick={openEditImageProduct} />
@@ -74,13 +75,13 @@ export function Product(props:any) {
         open={showConfirm}
         onCancel={onOpenCloseConfirm}
         onConfirm={onDelete}
-        content={`¿Estas seguro de eliminar el producto (${product.title})?`}
+        content={`¿Estas seguro de eliminar el producto (${product.model})?`}
       />
 
       <Modal.Basic
         show={openModal}
         onClose={closeModal}
-        title={`Editar (${product.title})`}
+        title={`Editar (${product.model})`}
       >
         {modalContent}
       </Modal.Basic>
